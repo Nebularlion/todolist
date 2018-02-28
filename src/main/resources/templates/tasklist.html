@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Tasks</title>
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+</head>
+<body>
+<table class="table table-striped">
+    <h2>Tasks</h2>
+    <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Priority</th>
+    </tr>
+    <tr th:each="task : ${tasks}">
+        <td th:text="${task.title}"></td>
+        <td th:text="${task.description}"></td>
+        <td th:text="${task.priority}"></td>
+        <td><a th:href="@{/delete/{id}(id=${task.id})}" class="btn btn-danger">Delete</a></td>
+    </tr>
+</table>
+<a href="/addtask" class="btn btn-success">Add Task</a>
+</body>
+</html>
