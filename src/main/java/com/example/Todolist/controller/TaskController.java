@@ -22,6 +22,7 @@ public class TaskController {
      */
     @RequestMapping("/tasklist")
     public String taskList(Model model){
+        model.addAttribute("task1", new Task());
         model.addAttribute("tasks", taskRepository.findAll());
         return "tasklist";
     }
@@ -55,7 +56,7 @@ public class TaskController {
      * @param id Gets id from url
      * @return Redirects to the tasklist
      */
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public  String deleteTask(@PathVariable("id") Long id, Model model){
         taskRepository.delete(id);
         return "redirect:/tasklist";

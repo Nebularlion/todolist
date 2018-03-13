@@ -1,6 +1,10 @@
 package com.example.Todolist.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 @Entity
 public class Task {
@@ -10,10 +14,14 @@ public class Task {
     private Long id;
     private String title;
     private String description;
+
+    @Min(1)
+    @Max(5)
     private int priority;
 
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "userid")
     private User user;
 

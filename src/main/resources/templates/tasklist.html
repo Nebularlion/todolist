@@ -2,12 +2,18 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
-    <title>Tasks</title>
+    <title class="otsikko">Tasks</title>
     <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
 </head>
 <body>
+<form><input type="hidden" name="_csrf" value="d63f746f-c5f6-4cc6-99c0-
+9220ff784b23" /></form>
+<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
 <table class="table table-striped">
-    <h2>Tasks</h2>
+    <h2 class="text-muted">Tasks</h2>
     <tr>
         <th>Title</th>
         <th>Description</th>
@@ -20,6 +26,22 @@
         <td><a th:href="@{/delete/{id}(id=${task.id})}" class="btn btn-danger">Delete</a></td>
     </tr>
 </table>
-<a href="/addtask" class="btn btn-success">Add Task</a>
+
+<div>
+    <form th:object="${task1}" th:action="@{/save}" action="#" method="post" id="taskform">
+        <label for="title">Title:</label>
+        <input type="text" id="title" th:field="*{title}"/>
+        <label for="description">Description:</label>
+        <input type="text" id="description" th:field="*{description}"/>
+        <select class="form-control" form="taskform" th:field="*{priority}">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <input type="submit" value="add"/>
+    </form>
+</div>
 </body>
 </html>

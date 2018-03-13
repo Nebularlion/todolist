@@ -1,6 +1,8 @@
 package com.example.Todolist.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -8,13 +10,31 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, updatable = false)
     private Long id;
-    private String username;
-    private String password;
 
-    @OneToMany
-    private List<Task> tasks;
+    @Column(name = "username", nullable = false, updatable = false)
+    private String username;
+
+    @Column(name = "password", nullable = false)
+    private String passwordHash;
+
+    private String email;
+
+    @Column(name = "role", nullable = false)
+    private String role;
+
+    public User(String username, String passwordHash, String email, String role){
+        this.username = username;
+        this.passwordHash = passwordHash;
+        this.email = email;
+        this.role = role;
+    }
+
+    public User(){
+
+    }
 
     public Long getId() {
         return id;
@@ -26,25 +46,34 @@ public class User {
 
     public String getUsername() {
         return username;
+
     }
 
     public void setUsername(String username) {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
-    public List<Task> getTasks() {
-        return tasks;
+    public String getEmail() {
+        return email;
     }
 
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
