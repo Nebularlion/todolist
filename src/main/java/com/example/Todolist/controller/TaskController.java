@@ -31,9 +31,7 @@ public class TaskController {
      */
     @RequestMapping("/tasklist")
     public String taskList(Model model){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        org.springframework.security.core.userdetails.User userDetails = (org.springframework.security.core.userdetails.User) auth.getPrincipal();
-        User user = userRepository.findByUsername( userDetails.getUsername() );
+        User user = getCurrentUser();
         List<Task> tasks = taskRepository.findByUser(user);
         model.addAttribute("task1", new Task());
         model.addAttribute("tasks", tasks);
@@ -59,9 +57,7 @@ public class TaskController {
      */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(Task task){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        org.springframework.security.core.userdetails.User userDetails = (org.springframework.security.core.userdetails.User) auth.getPrincipal();
-        User user = userRepository.findByUsername(userDetails.getUsername());
+        User user = getCurrentUser();
 
         task.setUser(user);
         taskRepository.save(task);
@@ -76,15 +72,25 @@ public class TaskController {
      */
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public  String deleteTask(@PathVariable("id") Long id, Model model){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        org.springframework.security.core.userdetails.User userDetails = (org.springframework.security.core.userdetails.User) auth.getPrincipal();
-        User user = userRepository.findByUsername( userDetails.getUsername() );
+        User user = getCurrentUser();
         Task task = taskRepository.findOne(id);
 
         if(task.getUser().equals(user)) taskRepository.delete(id);
 
 
         return "redirect:/tasklist";
+    }
+
+    /**
+     * Gets the current user from Secyrity context
+     * @return
+     */
+    private User getCurrentUser(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        org.springframework.security.core.userdetails.User userDetails = (org.springframework.security.core.userdetails.User) auth.getPrincipal();
+        User user = userRepository.findByUsername( userDetails.getUsername() );
+
+        return user;
     }
 
 }

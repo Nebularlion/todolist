@@ -4,14 +4,18 @@
     <meta charset="UTF-8"/>
     <title class="otsikko">Tasks</title>
     <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+    <link type="text/css" rel="stylesheet" href="css/styles.css" th:href="@{css/styles.css}" />
 </head>
 <body>
-<form><input type="hidden" name="_csrf" value="d63f746f-c5f6-4cc6-99c0-
-9220ff784b23" /></form>
 <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>
 </form>
+<div id="container">
+<form><input type="hidden" name="_csrf" value="d63f746f-c5f6-4cc6-99c0-
+9220ff784b23" /></form>
+
+
 <table class="table table-striped">
     <h2 class="text-muted">Tasks</h2>
     <tr>
@@ -27,21 +31,31 @@
     </tr>
 </table>
 
-<div>
+<div class="row">
     <form th:object="${task1}" th:action="@{/save}" action="#" method="post" id="taskform">
-        <label for="title">Title:</label>
-        <input type="text" id="title" th:field="*{title}"/>
-        <label for="description">Description:</label>
-        <input type="text" id="description" th:field="*{description}"/>
-        <select class="form-control" form="taskform" th:field="*{priority}">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-        </select>
-        <input type="submit" value="add"/>
+        <div class="col-sm-4">
+            <label for="title">Title:</label>
+            <input type="text" id="title" th:field="*{title}"/>
+        </div>
+        <div class="col-sm-4">
+            <label for="description">Description:</label>
+            <input type="text" id="description" th:field="*{description}"/>
+        </div>
+        <div class="col-sm-3">
+        <label >Priority:</label>
+            <select class="form-control" form="taskform"  th:field="*{priority}" id="prioritylist">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+        <div class="col-sm-2">
+            <input id="addButton" type="submit" class="btn btn-success btn-lg" value="add"/>
+        </div>
     </form>
+</div>
 </div>
 </body>
 </html>

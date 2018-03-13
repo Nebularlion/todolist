@@ -2,3 +2,23 @@
     position: absolute;
     left: 50%;
 }
+
+body{
+    padding:5%;
+}
+
+#prioritylist{
+    width: 63px;
+    padding-bottom: 2%;
+}
+
+#addButton{
+    padding-top: 2%;
+}
+
+
+
+#container{
+    text-align: center;
+
+}

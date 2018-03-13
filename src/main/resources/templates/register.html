@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title class="otsikko">Tasks</title>
+</head>
+<body>
+    <h2>Register</h2>
+    <form><input type="hidden" name="_csrf" value="d63f746f-c5f6-4cc6-99c0-9220ff784b23" /></form>
+    <form th:object="${user}" th:action="@{/register}" method="post">
+        <label>Username: <input type="text" th:field="*{username}" name="username" autofocus="autofocus"/></label>
+    <label>Password: <input type="password" th:field="*{passwordHash}" name="password"/></label>
+    <input type="submit" value="Register"/>
+</form>
+
+</body>
+</html>
