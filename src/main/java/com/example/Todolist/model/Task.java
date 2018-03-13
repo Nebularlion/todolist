@@ -56,4 +56,12 @@ public class Task {
     public void setPriority(int priority) {
         this.priority = priority;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

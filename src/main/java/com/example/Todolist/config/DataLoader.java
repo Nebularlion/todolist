@@ -34,8 +34,7 @@ public class DataLoader implements CommandLineRunner{
         task1.setDescription("Use the short leash");
         task1.setPriority(1);
 
-        taskRepository.save(task);
-        taskRepository.save(task1);
+
 
         User user1 = new User();
         User user2 = new User();
@@ -56,6 +55,13 @@ public class DataLoader implements CommandLineRunner{
         user1 = userRepository.save(user1);
         user2 = userRepository.save(user2);
         user3 = userRepository.save(user3);
+
+        task1.setUser(user1);
+        task.setUser(user2);
+
+        taskRepository.save(task);
+        taskRepository.save(task1);
+
 
     }
 }
