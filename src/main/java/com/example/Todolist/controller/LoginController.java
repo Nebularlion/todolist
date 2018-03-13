@@ -32,7 +32,7 @@ public class LoginController {
     }
 
     /**
-     *
+     * Checking if User exists and if not User will be saved
      * @param user
      * @return
      */
